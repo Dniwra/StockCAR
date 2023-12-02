@@ -1,0 +1,31 @@
+describe('tests', () => {
+
+  it('Liste voiture is visible', () => {
+    cy.visit('/esieaFront/')
+    cy.get('#listeVoiture').should("be.visible")
+  })
+  it('Ajouter une voiture', () => {
+    cy.visit('/esieaFront/')
+    cy.get('[data-test="add_button"]').click()
+    cy.get('#marque').type("Volkswagen")
+    cy.get('#modele').type("Scirocco")
+    cy.get('#finition').type("Noir")
+    cy.get('#carburant').select("Diesel")
+    cy.get('#km').type("86978")
+    cy.get('#annee').type("2017")
+    cy.get('#prix').type("15000")
+    cy.get('#nouvelleVoiture').click()
+    cy.get('[data-test="next_button"]').click()
+    cy.get('#listeVoitureTable').should('contain.text', 'Volkswagen')
+    cy.get('#listeVoitureTable').should('contain.text', 'Scirocco')
+    cy.get('#listeVoitureTable').should('contain.text', 'Noir')
+  })
+  it('Supprimer une voiture', () => {
+    cy.visit('/esieaFront/')
+    cy.get('#listeVoiture').should("be.visible")
+    cy.get('[data-test="next_button"]').click()
+    cy.get('table').contains('td', 'Scirocco').siblings().contains('a', 'Détails').click()
+    cy.get('#divSupprimer').get('button').contains('Supprimer').click()
+    cy.get('#listeVoitureTable').should('not.contain.text', 'Scirocco')
+  })
+})
