@@ -32,8 +32,6 @@ public class VoitureDAOTest {
         String idValide = "1";
         try {
             voitureDAO.supprimerVoiture(idValide);
-
-            // Vérifiez qu'il n'y a pas eu d'exception (la suppression a réussi)
             assertTrue(true);
         } catch (Exception e) {
             fail("La suppression de la voiture a échoué : " + e.getMessage());
